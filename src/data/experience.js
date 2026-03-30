@@ -1,0 +1,46 @@
+export const experience = [
+  {
+    id: "e1",
+    company: "Thurston",
+    role: "QA Engineer II",
+    dates: "Jan 2023 – Present",
+    location: "Remote",
+    type: "done",
+    status: "current",
+    bullets: [
+      "Lead QA for 3 concurrent web products; own the full test strategy from sprint kickoff to release sign-off.",
+      "Built Playwright E2E suite from scratch — 120+ tests covering critical user flows, integrated into GitHub Actions CI/CD.",
+      "Reduced production bug rate by 40% over 6 months through structured regression suites.",
+      "Facilitate sprint retrospectives; mentor 2 junior QA engineers on test documentation standards.",
+    ],
+  },
+  {
+    id: "e2",
+    company: "1902 Software",
+    role: "QA Engineer",
+    dates: "Jun 2021 – Dec 2022",
+    location: "Philippines (On-site)",
+    type: "Full-time",
+    status: "done",
+    bullets: [
+      "Performed manual and automated regression testing for enterprise SaaS clients.",
+      "Wrote and maintained 300+ test cases in Jira for web, mobile (iOS + Android), and API layers.",
+      "Led UAT sessions with client stakeholders; produced formal sign-off documentation.",
+      "Delivered API testing via Postman for 15+ REST endpoints per sprint.",
+    ],
+  },
+  {
+    id: "e3",
+    company: "DW Morgan",
+    role: "Junior QA Analyst",
+    dates: "Jan 2020 – May 2021",
+    location: "Philippines (On-site)",
+    type: "Full-time",
+    status: "done",
+    bullets: [
+      "Executed functional, smoke, and sanity test cases on logistics web applications.",
+      "Logged and triaged bugs in Jira; collaborated with developers to reproduce and verify fixes.",
+      "Participated in daily standups and sprint planning within Agile/Scrum teams.",
+    ],
+  },
+];
