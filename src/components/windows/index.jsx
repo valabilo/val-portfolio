@@ -212,7 +212,10 @@ export function WelcomeContent({ profile, openWindow }) {
           gap: 10,
           marginBottom: 24,
         }}>
-        <button className="w-btn primary" onClick={() => openWindow("about")}>
+        <button className="w-btn primary" onClick={() => openWindow("aichat")}>
+          🤖 Ask Val AI
+        </button>
+        <button className="w-btn" onClick={() => openWindow("about")}>
           💻 About Me
         </button>
         <button className="w-btn" onClick={() => openWindow("skills")}>
