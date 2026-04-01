@@ -11,10 +11,11 @@ import {
   SkillsContent,
   ExperienceContent,
   ProjectsContent,
+  AIChatContent,
   ContactContent,
 } from "./windows";
-import { AiChatContent } from "./windows/AiChat"; // ← NEW
 
+/* ── Constants ───────────────────────────────────────────────── */
 const WIN_IDS = [
   "welcome",
   "about",
@@ -31,10 +32,11 @@ const WINDOW_META = {
   skills: { icon: "🧪", title: "jest — test-runner — skills.test.js" },
   experience: { icon: "📋", title: "Jira — Career Board — VK Project" },
   projects: { icon: "📁", title: "File Explorer — qa-testing-projects" },
-  aichat: { icon: "🤖", title: "ask-val.ai — Claude AI" }, // ← NEW
+  aichat: { icon: "🤖", title: "ask-val.ai — Claude AI" },
   contact: { icon: "📧", title: "Mail — compose.mail" },
 };
 
+/* ── Component ───────────────────────────────────────────────── */
 export default function Desktop({ data }) {
   const mgr = useWindowManager();
 
@@ -51,13 +53,6 @@ export default function Desktop({ data }) {
   const skillSuites = data?.skillSuites ?? [];
   const projects = data?.projects ?? [];
 
-  useEffect(() => {
-    requestAnimationFrame(() => setOpacity(1));
-    setTimeout(() => handleOpen("welcome"), 400);
-    setTimeout(() => setShowNotif(true), 4000);
-    setTimeout(() => setShowNotif(false), 10000);
-  }, []); // eslint-disable-line react-hooks/exhaustive-deps
-
   const handleOpen = useCallback(
     (id) => {
       mgr.openWindow(id);
@@ -65,6 +60,13 @@ export default function Desktop({ data }) {
     },
     [mgr],
   );
+
+  useEffect(() => {
+    requestAnimationFrame(() => setOpacity(1));
+    setTimeout(() => handleOpen("welcome"), 400);
+    setTimeout(() => setShowNotif(true), 4000);
+    setTimeout(() => setShowNotif(false), 10000);
+  }, []); // eslint-disable-line react-hooks/exhaustive-deps
 
   const handleContextMenu = useCallback((e) => {
     if (e.target.closest(".os-window") || e.target.closest(".taskbar")) return;
@@ -101,6 +103,7 @@ export default function Desktop({ data }) {
     return () => window.removeEventListener("click", closeCtx);
   }, [closeCtx]);
 
+  /* ── Helpers ── */
   const def = (id) => WINDOW_DEFAULTS[id] ?? {};
   const winProps = (id) => ({
     id,
@@ -122,14 +125,7 @@ export default function Desktop({ data }) {
   return (
     <div
       className="desktop-bg"
-      style={{
-        width: "100%",
-        height: "100%",
-        position: "relative",
-        overflow: "hidden",
-        opacity,
-        transition: "opacity 0.6s ease",
-      }}
+      style={{ opacity, transition: "opacity 0.6s ease" }}
       onContextMenu={handleContextMenu}>
       {/* Desktop icons */}
       <div
@@ -145,7 +141,7 @@ export default function Desktop({ data }) {
         {DESKTOP_ICONS.map((icon) => (
           <div
             key={icon.id}
-            className={`d-icon ${selectedIcon === icon.id ? "selected" : ""}`}
+            className={`d-icon${selectedIcon === icon.id ? " selected" : ""}`}
             onClick={() => setSelectedIcon(icon.id)}
             onDoubleClick={() => handleOpen(icon.id)}>
             <div className="d-icon-img">{icon.icon}</div>
@@ -155,12 +151,13 @@ export default function Desktop({ data }) {
       </div>
 
       {/* ── Windows ── */}
-
       <Window {...winProps("welcome")}>
         <WelcomeContent profile={profile} openWindow={handleOpen} />
       </Window>
 
-      <Window {...winProps("about")} bodyStyle={{ background: "#020209" }}>
+      <Window
+        {...winProps("about")}
+        bodyStyle={{ background: "var(--term-bg)" }}>
         <AboutContent
           profile={profile}
           education={education}
@@ -184,9 +181,8 @@ export default function Desktop({ data }) {
         <ProjectsContent projects={projects} />
       </Window>
 
-      {/* ── AI Chat window ── NEW ── */}
       <Window {...winProps("aichat")}>
-        <AiChatContent />
+        <AIChatContent />
       </Window>
 
       <Window {...winProps("contact")} bodyStyle={{ flexDirection: "row" }}>
@@ -215,40 +211,14 @@ export default function Desktop({ data }) {
       {/* Notification */}
       {showNotif && (
         <div className="notification">
-          <div
-            style={{
-              position: "absolute",
-              top: 10,
-              right: 12,
-              color: "var(--text-dim)",
-              cursor: "pointer",
-              fontSize: 16,
-            }}
-            onClick={() => setShowNotif(false)}>
+          <button className="notif-close" onClick={() => setShowNotif(false)}>
             ×
-          </div>
-          <div
-            style={{
-              display: "flex",
-              alignItems: "center",
-              gap: 8,
-              marginBottom: 8,
-              fontSize: 11,
-              color: "var(--cyan)",
-              letterSpacing: "0.08em",
-            }}>
+          </button>
+          <div className="notif-header">
             <span>🤖</span> New Feature
           </div>
-          <div
-            style={{
-              fontSize: 13,
-              color: "var(--text-bright)",
-              marginBottom: 4,
-            }}>
-            Ask Val AI is live
-          </div>
-          <div
-            style={{ fontSize: 11, color: "var(--text-dim)", lineHeight: 1.5 }}>
+          <div className="notif-title">Ask Val AI is live</div>
+          <div className="notif-body">
             Double-click{" "}
             <strong style={{ color: "var(--cyan)" }}>ask-val.ai</strong> to chat
             with Val's AI representative — powered by Gemini.

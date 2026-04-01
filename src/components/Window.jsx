@@ -1,10 +1,6 @@
 // src/components/Window.jsx
-import { useDraggable } from '../hooks/useDraggable'
+import { useDraggable } from "../hooks/useDraggable";
 
-/**
- * Reusable OS-style window shell.
- * Children become the window body content.
- */
 export default function Window({
   id,
   title,
@@ -24,34 +20,43 @@ export default function Window({
   children,
   bodyStyle = {},
 }) {
-  const { handleDragStart } = useDraggable({ x: x ?? 0, y: y ?? 0, onMove, onFocus })
+  const { handleDragStart } = useDraggable({
+    x: x ?? 0,
+    y: y ?? 0,
+    onMove,
+    onFocus,
+  });
 
-  if (!isOpen || isMinimized) return null
-
-  const style = {
-    width:   width,
-    height:  height === 'auto' ? 'auto' : height,
-    left:    x ?? 0,
-    top:     y ?? 0,
-    zIndex,
-  }
+  if (!isOpen || isMinimized) return null;
 
   return (
     <div
-      className={`os-window ${isActive ? 'active-win' : ''}`}
-      style={style}
-      onMouseDown={onFocus}
-    >
+      className={`os-window${isActive ? " active-win" : ""}`}
+      style={{
+        width,
+        height: height === "auto" ? "auto" : height,
+        left: x ?? 0,
+        top: y ?? 0,
+        zIndex,
+      }}
+      onMouseDown={onFocus}>
       {/* Title bar */}
       <div
         className="win-titlebar"
         onMouseDown={handleDragStart}
-        onTouchStart={handleDragStart}
-      >
-        <div className="win-controls" style={{ display:'flex', gap: 7 }}>
-          <button className="win-btn close"    onClick={() => onClose(id)} />
-          <button className="win-btn minimize" onClick={() => onMinimize(id)} />
-          <button className="win-btn maximize" />
+        onTouchStart={handleDragStart}>
+        <div className="win-controls">
+          <button
+            className="win-btn close"
+            onClick={() => onClose(id)}
+            aria-label="Close"
+          />
+          <button
+            className="win-btn minimize"
+            onClick={() => onMinimize(id)}
+            aria-label="Minimize"
+          />
+          <button className="win-btn maximize" aria-label="Maximize" />
         </div>
         <div className="win-title-center">
           <span className="win-ico">{icon}</span>
@@ -64,5 +69,5 @@ export default function Window({
         {children}
       </div>
     </div>
-  )
+  );
 }
