@@ -1,8 +1,11 @@
-// src/components/windows/AiChatContent.jsx
+// src/components/windows/AIChatContent.jsx
 import { useState, useEffect, useRef } from "react";
-import axios from "axios";
+import portfolioData from "../../data/portfolio.json";
 
-const API = import.meta.env.VITE_API_URL;
+const GEMINI_KEY = import.meta.env.VITE_GEMINI_KEY;
+const GEMINI_MODEL =
+  import.meta.env.VITE_GEMINI_MODEL ?? "gemini-3.1-pro-preview";
+const GEMINI_URL = `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_KEY}`;
 
 const SUGGESTIONS = [
   "What's your strongest QA skill?",
@@ -21,7 +24,97 @@ const INITIAL_MESSAGE = {
     "Hi! I'm Val's AI representative.\n\nAsk me anything about Val's experience, skills, projects, or availability — I'll answer as Val would. What would you like to know?",
 };
 
-/* ── Sub-components ──────────────────────────────────────────── */
+function buildSystemPrompt() {
+  const { profile, education, awards, experiences, skillSuites, projects } =
+    portfolioData;
+
+  const eduBlock = education
+    .map(
+      (e) =>
+        `- [${e.type}] ${e.title} — ${e.institution}${e.year ? `, ${e.year}` : ""}`,
+    )
+    .join("\n");
+
+  const awardsBlock = awards
+    .map(
+      (a) =>
+        `- ${a.title}${a.issuer ? ` (${a.issuer})` : ""}${a.year ? `, ${a.year}` : ""}`,
+    )
+    .join("\n");
+
+  const expBlock = experiences
+    .map((exp) => {
+      const bullets = exp.bullets.map((b) => `  • ${b}`).join("\n");
+      const tags = exp.tags.join(", ");
+      const status =
+        exp.status === "progress" ? "CURRENT ROLE" : "PREVIOUS ROLE";
+      return `[${status}] ${exp.title}\nPeriod: ${exp.date} | Type: ${exp.type}\nLocation: ${exp.sub}\nKey achievements:\n${bullets}\nSkills used: ${tags}`;
+    })
+    .join("\n\n");
+
+  const skillsBlock = skillSuites
+    .map((suite) => {
+      const skills = suite.tests
+        .map(
+          (s) =>
+            `  - ${s.name} (${s.pct}%)${s.tag === "warn" ? " [actively learning]" : ""}`,
+        )
+        .join("\n");
+      return `${suite.label}:\n${skills}`;
+    })
+    .join("\n\n");
+
+  const projectsBlock = projects
+    .map(
+      (p) => `- ${p.name} [${p.type}]: ${p.desc} | Tools: ${p.tags.join(", ")}`,
+    )
+    .join("\n");
+
+  return `You are the AI representative of ${profile.name}, a professional QA Tester.
+Your role is to answer questions from recruiters, hiring managers, clients, and collaborators visiting Val's interactive portfolio website (ValOS).
+
+Speak on Val's behalf — use first person ("I", "my", "I have") as if you ARE Val.
+Be professional, concise, confident, and honest.
+Only use the data provided below — do not invent any information.
+If you don't know the answer, say "I don't have that information. You can email me at ${profile.email} and I'll get back to you as soon as possible."
+Keep answers under 150 words unless a detailed explanation is genuinely needed.
+Do not mention that you are an AI or that you are reading from a data file.
+Do not use closing sign-offs like "Best regards" or "Feel free to ask".
+For salary/rate questions: say you are open to discussing based on the role.
+
+═══════════════════════════════════════════════════
+VAL'S PORTFOLIO DATA
+═══════════════════════════════════════════════════
+
+IDENTITY
+Name: ${profile.name}
+Role: ${profile.role}
+Location: ${profile.location}
+Email: ${profile.email}
+Phone: ${profile.phone}
+LinkedIn: ${profile.linkedin_url}
+GitHub: ${profile.github_url}
+Available for work: ${profile.available ? "Yes" : "No"}
+
+BIO
+${profile.bio}
+
+EDUCATION
+${eduBlock}
+
+AWARDS & RECOGNITION
+${awardsBlock}
+
+WORK EXPERIENCE
+${expBlock}
+
+TECHNICAL SKILLS
+${skillsBlock}
+
+QA PROJECTS & PORTFOLIO
+${projectsBlock}`;
+}
+
 function ChatBubble({ msg }) {
   const isUser = msg.role === "user";
   return (
@@ -47,7 +140,6 @@ function TypingIndicator() {
   );
 }
 
-/* ── Component ───────────────────────────────────────────────── */
 export function AIChatContent() {
   const [messages, setMessages] = useState([INITIAL_MESSAGE]);
   const [input, setInput] = useState("");
@@ -74,18 +166,53 @@ export function AIChatContent() {
     setLoading(true);
 
     try {
-      const { data } = await axios.post(`${API}/api/chat`, {
-        messages: newMessages,
+      if (!GEMINI_KEY) throw new Error("VITE_GEMINI_KEY is not set in .env");
+
+      const geminiMessages = newMessages.map((m) => ({
+        role: m.role === "assistant" ? "model" : "user",
+        parts: [{ text: m.content }],
+      }));
+
+      const res = await fetch(GEMINI_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          system_instruction: {
+            parts: [{ text: buildSystemPrompt() }],
+          },
+          contents: geminiMessages,
+          generationConfig: {
+            maxOutputTokens: 1024,
+            temperature: 0.7,
+          },
+          safetySettings: [
+            { category: "HARM_CATEGORY_HARASSMENT", threshold: "BLOCK_NONE" },
+            { category: "HARM_CATEGORY_HATE_SPEECH", threshold: "BLOCK_NONE" },
+            {
+              category: "HARM_CATEGORY_SEXUALLY_EXPLICIT",
+              threshold: "BLOCK_NONE",
+            },
+            {
+              category: "HARM_CATEGORY_DANGEROUS_CONTENT",
+              threshold: "BLOCK_NONE",
+            },
+          ],
+        }),
       });
-      setMessages((prev) => [
-        ...prev,
-        { role: "assistant", content: data.reply },
-      ]);
+
+      if (!res.ok) {
+        const err = await res.json();
+        throw new Error(err?.error?.message ?? "Gemini API error");
+      }
+
+      const data = await res.json();
+      const reply =
+        data?.candidates?.[0]?.content?.parts?.[0]?.text ??
+        "Sorry, I could not generate a response. Please try again.";
+
+      setMessages((prev) => [...prev, { role: "assistant", content: reply }]);
     } catch (err) {
-      const msg =
-        err.response?.data?.error ??
-        "Connection failed. Make sure the API is running.";
-      setError(msg);
+      setError(err.message ?? "Connection failed. Please try again.");
       setMessages((prev) => prev.slice(0, -1));
     } finally {
       setLoading(false);
@@ -113,7 +240,6 @@ export function AIChatContent() {
 
   return (
     <div className="ai-chat">
-      {/* Toolbar */}
       <div className="ai-chat-header">
         <div style={{ display: "flex", alignItems: "center", gap: 8, flex: 1 }}>
           <div className="tb-status-dot" />
@@ -133,7 +259,6 @@ export function AIChatContent() {
         </button>
       </div>
 
-      {/* Messages */}
       <div className="ai-chat-messages">
         {messages.map((msg, i) => (
           <ChatBubble key={i} msg={msg} />
@@ -142,7 +267,6 @@ export function AIChatContent() {
 
         {error && <div className="ai-chat-error">⚠ {error}</div>}
 
-        {/* Suggestions */}
         {showSuggs && messages.length <= 1 && (
           <div className="chat-suggestions">
             <div className="chat-suggestions-label">Suggested questions</div>
@@ -162,7 +286,6 @@ export function AIChatContent() {
         <div ref={bottomRef} />
       </div>
 
-      {/* Input */}
       <div className="ai-chat-input-area">
         <div className="ai-chat-input-row">
           <textarea

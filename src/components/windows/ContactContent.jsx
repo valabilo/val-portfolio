@@ -1,8 +1,7 @@
 // src/components/windows/ContactContent.jsx
 import { useState } from "react";
-import axios from "axios";
 
-const API = import.meta.env.VITE_API_URL;
+const FORMSPREE_URL = "https://formspree.io/f/xnjlrgnk";
 
 function validateForm(form) {
   const e = {};
@@ -52,13 +51,20 @@ export function ContactContent({ profile }) {
     setApiErr("");
     setSending(true);
     try {
-      await axios.post(`${API}/api/contact`, form);
+      const res = await fetch(FORMSPREE_URL, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          email: form.email,
+          subject: form.subject,
+          message: form.message,
+        }),
+      });
+      if (!res.ok) throw new Error("Failed to send");
       setSent(true);
     } catch (err) {
-      setApiErr(
-        err.response?.data?.message ??
-          "Something went wrong. Please try again.",
-      );
+      setApiErr("Something went wrong. Please try again or email directly.");
     } finally {
       setSending(false);
     }
@@ -95,7 +101,6 @@ export function ContactContent({ profile }) {
           </div>
         ))}
 
-        {/* Contact info */}
         <div className="mail-sidebar-info">
           <div style={{ color: "var(--text-bright)", marginBottom: 4 }}>
             val@portfolio.dev
@@ -121,7 +126,6 @@ export function ContactContent({ profile }) {
 
       {/* Compose area */}
       <div className="mail-compose">
-        {/* Header */}
         <div className="mail-compose-header">
           <span>📝</span>
           <span style={{ color: "var(--text-bright)", fontWeight: 500 }}>

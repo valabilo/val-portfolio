@@ -1,0 +1,253 @@
+{
+  "profile": {
+    "name": "Val Krystoper Abilo",
+    "role": "QA Engineer II",
+    "bio": "Detail-oriented QA Engineer with 2+ years of hands-on experience designing comprehensive test plans, executing test suites, and shipping bug-free software. Skilled in identifying, documenting, and resolving defects with a strong understanding of QA methodologies. Collaborative team player, Agile-fluent, and passionate about quality at every stage of development.",
+    "location": "Manggahan, Pasig City, PH",
+    "email": "abilovalkrystoper@gmail.com",
+    "phone": "+63 947 809 2197",
+    "linkedin_url": "https://linkedin.com/in/valkrystoper-abilo-a5b88a236",
+    "github_url": "https://github.com/YOUR_USERNAME",
+    "available": true
+  },
+  "education": [
+    {
+      "type": "degree",
+      "title": "BS Computer Engineering",
+      "institution": "ICCT Colleges Inc.",
+      "year": "2013"
+    },
+    {
+      "type": "certification",
+      "title": "Full-Stack Web Development",
+      "institution": "KodeGo",
+      "year": "Dec 2022 – Apr 2023"
+    },
+    {
+      "type": "training",
+      "title": "JavaScript Programming",
+      "institution": "Bayan Academy (Supported by J.P. Morgan)",
+      "year": "Mar 2023"
+    },
+    {
+      "type": "training",
+      "title": "Teaching English as a Second Language",
+      "institution": "Clair Voyance",
+      "year": "Sep – Oct 2022"
+    },
+    {
+      "type": "training",
+      "title": "Nanay's in I.T. Program",
+      "institution": "DICT / Government Initiative",
+      "year": "Oct 2023 – Apr 2024"
+    }
+  ],
+  "awards": [
+    {
+      "title": "Top 1 · KodeGo Full-Stack Web Development Best Capstone",
+      "issuer": "KodeGo Bootcamp",
+      "year": "2023"
+    },
+    {
+      "title": "KodeGo Full-Stack Web Development Excellence Award",
+      "issuer": "KodeGo Bootcamp",
+      "year": "2023"
+    }
+  ],
+  "experiences": [
+    {
+      "key": "VK-003",
+      "title": "Quality Assurance Engineer II · Thurston Software Solutions Inc.",
+      "sub": "📍 5F F. Blumentrit, San Juan, Metro Manila",
+      "status": "progress",
+      "type": "FULL-TIME",
+      "date": "Apr 14, 2025 → Present",
+      "bullets": [
+        "Designed and maintained comprehensive test plans and test cases covering functional and regression testing for all product modules.",
+        "Onboarded and mentored newly hired QA team members — led system walkthroughs, maintained clear feature documentation, and established team standards.",
+        "Collaborated with developers, project supervisors, and QA peers to plan testing activities, review strategies, and proactively address risks before each release.",
+        "Analyzed reported issues, performed root cause analysis, and recommended practical fixes to improve system quality and long-term stability."
+      ],
+      "tags": ["Test Plans", "Regression", "Team Mentoring", "Root Cause Analysis", "Jira", "Agile/Scrum", "Documentation"]
+    },
+    {
+      "key": "VK-002",
+      "title": "Software Quality Assurance · 1902 Software Development",
+      "sub": "📍 Asean Drive, corner Singapura Rd, Muntinlupa · WriteText.ai",
+      "status": "done",
+      "type": "PROJECT-BASED",
+      "date": "Sep 18, 2024 → Mar 17, 2025",
+      "bullets": [
+        "Spearheaded QA for WriteText.ai — an AI-powered text generation platform. Tested both frontend functionality and backend performance for seamless UX and system reliability.",
+        "Developed and executed test cases to validate AI-generated text accuracy, API integrations, and backend processing pipelines. Reported critical defects directly to the dev team.",
+        "Collaborated with cross-functional teams to improve product quality — provided detailed feedback and recommendations based on comprehensive test results."
+      ],
+      "tags": ["WriteText.ai", "AI Platform QA", "API Testing", "Postman", "Backend Testing", "Cross-functional Teams"]
+    },
+    {
+      "key": "VK-001",
+      "title": "Software QA Intern · DW Morgan",
+      "sub": "📍 Ortigas Center, Mandaluyong",
+      "status": "done",
+      "type": "INTERNSHIP",
+      "date": "Oct 16, 2023 → Jul 15, 2024",
+      "bullets": [
+        "Wrote test scenarios evaluating software usability across multiple modules and user flows — ensuring features met defined acceptance criteria.",
+        "Executed full testing cycles (functional, regression, UAT) and prepared detailed effectiveness reports with defect documentation, severity classifications, and reproduction steps for the production team."
+      ],
+      "tags": ["Test Scenarios", "Usability Testing", "UAT", "Bug Reporting", "Defect Tracking"]
+    }
+  ],
+  "skillSuites": [
+    {
+      "id": "qa",
+      "label": "Testing · QA & Manual",
+      "countText": "6 passed",
+      "tests": [
+        { "name": "Manual Testing", "pct": 100, "tag": "pass" },
+        { "name": "Regression Testing", "pct": 100, "tag": "pass" },
+        { "name": "Functional Testing", "pct": 100, "tag": "pass" },
+        { "name": "User Acceptance Testing (UAT)", "pct": 100, "tag": "pass" },
+        { "name": "Mobile Testing (iOS/Android)", "pct": 95, "tag": "pass" },
+        { "name": "Smoke & Sanity Testing", "pct": 95, "tag": "pass" }
+      ]
+    },
+    {
+      "id": "api",
+      "label": "Testing · API & Backend",
+      "countText": "3 passed",
+      "tests": [
+        { "name": "API Testing (Postman)", "pct": 100, "tag": "pass" },
+        { "name": "SQL / Database Testing", "pct": 90, "tag": "pass" },
+        { "name": "Backend Performance Testing", "pct": 85, "tag": "pass" }
+      ]
+    },
+    {
+      "id": "tools",
+      "label": "Testing · Tools & Process",
+      "countText": "4 passed · 1 learning",
+      "tests": [
+        { "name": "Jira — Issue & Bug Tracking", "pct": 100, "tag": "pass" },
+        { "name": "Agile / Scrum Methodology", "pct": 100, "tag": "pass" },
+        { "name": "Test Case Design & Documentation", "pct": 100, "tag": "pass" },
+        { "name": "Playwright — E2E Automation", "pct": 90, "tag": "pass" },
+        { "name": "GitHub Actions — CI/CD", "pct": 80, "tag": "warn" }
+      ]
+    },
+    {
+      "id": "dev",
+      "label": "Testing · Dev Stack",
+      "countText": "4 passed",
+      "tests": [
+        { "name": "React JS — Frontend", "pct": 90, "tag": "pass" },
+        { "name": "Laravel — Backend Framework", "pct": 85, "tag": "pass" },
+        { "name": "MySQL — Relational Database", "pct": 90, "tag": "pass" },
+        { "name": "JavaScript — Scripting", "pct": 85, "tag": "pass" }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "p1",
+      "icon": "🌐",
+      "name": "opencart-test-suite",
+      "label": "opencart-suite",
+      "type": "WEB APPLICATION TESTING · MANUAL",
+      "desc": "Comprehensive manual test suite for OpenCart e-commerce. Covers login validation, product search, cart management, and full checkout flow. Includes test case spreadsheets with TC-ID, steps, expected vs actual results, and severity-classified bug reports with screenshots.",
+      "github": "https://github.com/YOUR_USERNAME/qa-testing-projects",
+      "meta": [
+        ["Status", "● Active", true],
+        ["Test Cases", "80+ written in Excel", false],
+        ["Bug Reports", "12 documented defects", false],
+        ["Modules", "Login · Search · Cart · Checkout · Payment", false],
+        ["Coverage", "92%", true]
+      ],
+      "tags": ["Manual Testing", "Regression", "Excel", "Bug Reports", "UAT"]
+    },
+    {
+      "id": "p2",
+      "icon": "⚡",
+      "name": "rest-api-collection",
+      "label": "api-collection",
+      "type": "API TESTING · POSTMAN",
+      "desc": "Postman collection with 40+ automated API tests using JavaScript test scripts. Validates REST endpoints for authentication, CRUD operations, and error handling. Includes environment variables, pre-request scripts, and a full README for team usage.",
+      "github": "https://github.com/YOUR_USERNAME/qa-testing-projects",
+      "meta": [
+        ["Status", "● Active", true],
+        ["API Tests", "40+ automated assertions", false],
+        ["Endpoints", "GET · POST · PUT · DELETE", false],
+        ["Assertions", "Status codes · Response body · Headers", false],
+        ["Pass Rate", "100%", true]
+      ],
+      "tags": ["Postman", "REST API", "JavaScript", "Laravel API", "MySQL"]
+    },
+    {
+      "id": "p3",
+      "icon": "🤖",
+      "name": "playwright-e2e-suite",
+      "label": "playwright-e2e",
+      "type": "E2E AUTOMATION · PLAYWRIGHT",
+      "desc": "End-to-end automated test suite using Playwright (JavaScript). Covers login, search, cart, and checkout flows. Generates HTML reports with screenshots and video traces. Integrated with GitHub Actions for automatic test runs on every push to main.",
+      "github": "https://github.com/YOUR_USERNAME/qa-testing-projects",
+      "meta": [
+        ["Status", "● Active", true],
+        ["E2E Tests", "15 automated scripts", false],
+        ["CI/CD", "GitHub Actions on push", false],
+        ["Reports", "HTML + screenshots + video", false],
+        ["Pass Rate", "93%", true]
+      ],
+      "tags": ["Playwright", "JavaScript", "GitHub Actions", "HTML Reports", "CI/CD"]
+    },
+    {
+      "id": "p4",
+      "icon": "🤖",
+      "name": "writetext-ai-qa-docs",
+      "label": "writetext-qa",
+      "type": "AI PLATFORM QA · DOCUMENTATION",
+      "desc": "Full QA documentation from my role at 1902 Software Development. Includes test strategy, detailed test plans, severity matrix, and bug tracker for WriteText.ai — an AI-powered content generation platform.",
+      "github": "https://github.com/YOUR_USERNAME/qa-testing-projects",
+      "meta": [
+        ["Status", "○ Archived", false],
+        ["Test Cases", "120+ covering AI outputs", false],
+        ["Platform", "WriteText.ai (SaaS)", false],
+        ["Type", "AI accuracy · API · Performance", false],
+        ["Severity", "3 Critical · 8 High found", false]
+      ],
+      "tags": ["AI Testing", "SaaS QA", "Test Strategy", "Jira", "1902 Software"]
+    },
+    {
+      "id": "p5",
+      "icon": "📱",
+      "name": "mobile-qa-checklist",
+      "label": "mobile-checklist",
+      "type": "MOBILE TESTING · iOS & ANDROID",
+      "desc": "A reusable mobile QA framework covering device compatibility, gestures, push notifications, offline mode behavior, deep links, and OS version matrix for both iOS and Android.",
+      "github": "https://github.com/YOUR_USERNAME/qa-testing-projects",
+      "meta": [
+        ["Status", "● Active", true],
+        ["Platforms", "iOS 15–17 · Android 11–14", false],
+        ["Checklist", "60+ test points", false],
+        ["Covers", "Gestures · Offline · Notifications", false],
+        ["Reusable", "Yes — template format", true]
+      ],
+      "tags": ["Mobile Testing", "iOS", "Android", "Compatibility Matrix"]
+    },
+    {
+      "id": "p6",
+      "icon": "🗄️",
+      "name": "mysql-database-tests",
+      "label": "mysql-db-tests",
+      "type": "DATABASE TESTING · SQL",
+      "desc": "SQL-based test cases for MySQL database integrity validation. Covers data consistency, foreign key constraint testing, stored procedure validation, and data migration verification.",
+      "github": "https://github.com/YOUR_USERNAME/qa-testing-projects",
+      "meta": [
+        ["Status", "● Active", true],
+        ["DB Tests", "30+ SQL test cases", false],
+        ["Covers", "Integrity · FK · Stored Procs", false],
+        ["Stack", "MySQL · Laravel ORM", false],
+        ["Pass Rate", "100%", true]
+      ],
+      "tags": ["MySQL", "SQL", "Laravel", "Data Integrity", "Stored Procedures"]
+    }
+  ]
+}

@@ -48,52 +48,6 @@ function Section({ title, children }) {
 }
 
 /* ══════════════════════════════════════════════════════════════
-   JIRA TOOLBAR  (mirrors desktop ExperienceContent toolbar)
-══════════════════════════════════════════════════════════════ */
-function JiraToolbar({ count, name }) {
-  return (
-    <div
-      style={{
-        display: "flex",
-        alignItems: "center",
-        gap: 8,
-        marginBottom: 12,
-        flexWrap: "wrap",
-        padding: "8px 12px",
-        background: "rgba(0,0,0,0.08)",
-        borderRadius: "var(--radius-md)",
-        border: "1px solid var(--border)",
-      }}>
-      <span
-        style={{
-          fontSize: 10,
-          color: "var(--text-dim)",
-          letterSpacing: "0.06em",
-        }}>
-        Projects / <span style={{ color: "var(--cyan)" }}>{name}</span> / Board
-      </span>
-      <span
-        style={{
-          fontSize: 9,
-          padding: "2px 8px",
-          borderRadius: "var(--radius-sm)",
-          background: "var(--cyan-dim)",
-          color: "var(--cyan)",
-          border: "1px solid rgba(0,229,255,0.2)",
-          letterSpacing: "0.08em",
-          fontWeight: 600,
-        }}>
-        EPIC: QA CAREER
-      </span>
-      <span
-        style={{ marginLeft: "auto", fontSize: 9, color: "var(--text-dim)" }}>
-        {count} issues · Tap to expand
-      </span>
-    </div>
-  );
-}
-
-/* ══════════════════════════════════════════════════════════════
    EXPERIENCE CARD  (mirrors desktop jira-issue)
 ══════════════════════════════════════════════════════════════ */
 function ExperienceCard({ exp }) {
@@ -421,10 +375,8 @@ export default function MobileFallback({ profile, experiences, skillSuites }) {
   const bio = profile?.bio ?? "";
   const email = profile?.email ?? "abilovalkrystoper@gmail.com";
   const phone = profile?.phone ?? "";
-  const linkedin =
-    profile?.linkedin_url ??
-    "https://linkedin.com/in/valkrystoper-abilo-a5b88a236";
-  const github = profile?.github_url ?? "https://github.com/YOUR_USERNAME";
+  const linkedin = profile?.linkedin_url ?? "www.linkedin.com/in/valabilo";
+  const github = profile?.github_url ?? "https://github.com/valabilo";
   const exps = experiences ?? [];
   const allSkills = (skillSuites ?? []).flatMap((suite) =>
     suite.tests.map((t) => t.name),
@@ -515,7 +467,7 @@ export default function MobileFallback({ profile, experiences, skillSuites }) {
             <a
               key={link.label}
               href={link.href}
-              target={link.href.startsWith("http") ? "_blank" : undefined}
+              target="_blank"
               rel="noopener noreferrer"
               style={{
                 color: "var(--cyan)",
@@ -544,7 +496,6 @@ export default function MobileFallback({ profile, experiences, skillSuites }) {
           </div>
         ) : (
           <>
-            <JiraToolbar count={exps.length} />
             <div style={{ display: "flex", flexDirection: "column", gap: 10 }}>
               {exps.map((exp) => (
                 <ExperienceCard key={exp.key} exp={exp} />
@@ -585,8 +536,20 @@ export default function MobileFallback({ profile, experiences, skillSuites }) {
               href={`tel:${phone.replace(/\s/g, "")}`}
             />
           )}
-          <ContactRow icon="🔗" value="LinkedIn" href={linkedin} />
-          <ContactRow icon="🐙" value="GitHub" href={github} />
+          <ContactRow
+            icon="🔗"
+            value="LinkedIn"
+            href={linkedin}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
+          <ContactRow
+            icon="🐙"
+            value="GitHub"
+            href={github}
+            target="_blank"
+            rel="noopener noreferrer"
+          />
         </div>
       </Section>
 
@@ -600,7 +563,7 @@ export default function MobileFallback({ profile, experiences, skillSuites }) {
           letterSpacing: "0.06em",
           fontFamily: "var(--font-mono)",
         }}>
-        © {new Date().getFullYear()} Val Krystoper Abilo · QA Engineer II
+        © {new Date().getFullYear()} {name} · {role}
       </div>
 
       {/* Expand animation keyframe */}
